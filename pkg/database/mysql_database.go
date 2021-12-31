@@ -46,16 +46,16 @@ func newMysqlDatabase(opt DbConfig) *MysqlDatabase {
 	return &MysqlDatabase{db: conn, cfg: opt}
 }
 
-//GetConn
-func (m *MysqlDatabase) GetConn() *gorm.DB {
+//Conn
+func (m *MysqlDatabase) Conn() *gorm.DB {
 	return m.db
 }
 
 func (m *MysqlDatabase) GetTables(dbName string) (tbs []TableInfo) {
-	m.db.Raw(`select table_name from information_schema.tables where table_schema=?`, dbName).Scan(&tbs)
+	m.db.Raw(`select table_name,table_comment from information_schema.tables where table_schema=?`, dbName).Scan(&tbs)
 	return
 }
 func (m *MysqlDatabase) GetColumns(tbName string) (columns []ColumnInfo) {
-	m.db.Raw("desc ?", tbName).Scan(&columns)
+	m.db.Raw("SELECT COLUMN_NAME 'field',COLUMN_TYPE 'type',COLUMN_KEY 'key',IS_NULLABLE 'is_null',COLUMN_COMMENT 'comment' FROM information_schema. COLUMNS WHERE  TABLE_NAME =?", tbName).Scan(&columns)
 	return
 }

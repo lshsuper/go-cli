@@ -1,8 +1,6 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"github.com/urfave/cli"
 	"go-cli/cmd/command"
 	"log"
@@ -20,7 +18,7 @@ func main() {
 	//程序的版本号
 	oApp.Version = "v1.0.0"
 
-	oApp.Commands = append(oApp.Commands, command.Db2StructCommand)
+	oApp.Commands = append(oApp.Commands, command.Db2StructCommand,command.ApiCommand,command.WebCommand)
 
 	//启动
 	if err := oApp.Run(os.Args); err != nil {
@@ -28,7 +26,4 @@ func main() {
 	}
 
 }
-func usage() {
-	fmt.Println(`命令行使用指南：`)
-	flag.PrintDefaults()
-}
+

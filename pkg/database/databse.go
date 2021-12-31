@@ -5,7 +5,7 @@ import (
 )
 
 type IDatabase interface {
-	GetConn() *gorm.DB
+	Conn() *gorm.DB
 	GetTables(dbName string) []TableInfo
 	GetColumns(tbName string) []ColumnInfo
 }
