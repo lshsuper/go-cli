@@ -1,6 +1,7 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
@@ -65,4 +66,9 @@ func (m *SqlServerDatabase) GetColumns(tbName string) (columns []ColumnInfo) {
 				  left join  sys.extended_properties   f   on   b.id=f.major_id   and     b.colid=f.minor_id
 				  where a.name=?`, tbName).Scan(&columns)
 	return
+}
+func (m*SqlServerDatabase)Session(ctx context.Context)*gorm.DB  {
+	return m.db.Session(&gorm.Session{
+		Context: ctx,
+	})
 }

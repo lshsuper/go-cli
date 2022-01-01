@@ -1,6 +1,7 @@
 package database
 
 import (
+	"context"
 	"gorm.io/gorm"
 )
 
@@ -8,6 +9,7 @@ type IDatabase interface {
 	Conn() *gorm.DB
 	GetTables(dbName string) []TableInfo
 	GetColumns(tbName string) []ColumnInfo
+	Session(ctx context.Context)*gorm.DB
 }
 
 //Register

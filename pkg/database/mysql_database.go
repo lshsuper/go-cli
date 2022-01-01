@@ -1,6 +1,7 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"gorm.io/driver/mysql"
 	_ "gorm.io/driver/mysql"
@@ -43,6 +44,7 @@ func newMysqlDatabase(opt DbConfig) *MysqlDatabase {
 	// SetConnMaxLifetime 设置了连接可复用的最大时间。
 	db.SetConnMaxLifetime(time.Hour)
 
+
 	return &MysqlDatabase{db: conn, cfg: opt}
 }
 
@@ -58,4 +60,10 @@ func (m *MysqlDatabase) GetTables(dbName string) (tbs []TableInfo) {
 func (m *MysqlDatabase) GetColumns(tbName string) (columns []ColumnInfo) {
 	m.db.Raw("SELECT COLUMN_NAME 'field',COLUMN_TYPE 'type',COLUMN_KEY 'key',IS_NULLABLE 'is_null',COLUMN_COMMENT 'comment' FROM information_schema. COLUMNS WHERE  TABLE_NAME =?", tbName).Scan(&columns)
 	return
+}
+func (m*MysqlDatabase)Session(ctx context.Context)*gorm.DB  {
+
+	return m.db.Session(&gorm.Session{
+		   Context: ctx,
+	})
 }
