@@ -1,1 +1,1 @@
-# go-cli
+# github.com/lshsuper/go-cli

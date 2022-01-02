@@ -1,4 +1,4 @@
-module go-cli
+module github.com/lshsuper/go-cli
 
 go 1.14
 

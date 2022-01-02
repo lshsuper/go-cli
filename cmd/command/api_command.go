@@ -187,7 +187,7 @@ func showPro(pathname string,lev int) error {
 
 			//fmt.Println(fi.Name())
 			var fName=""
-			if lev==0{
+			if lev==1{
 				fName=fi.Name()
 			}else{
 				fName=strings.Repeat(" ",lev+1)+"-"+fi.Name()

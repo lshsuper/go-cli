@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 	"github.com/urfave/cli"
-	"go-cli/pkg/database"
+	"github.com/lshsuper/go-cli/pkg/database"
 	"io/ioutil"
 	"os"
 	"path"
