@@ -1,9 +1,9 @@
-package command
+package cmd
 
 import (
 	"fmt"
-	"github.com/urfave/cli"
 	"github.com/lshsuper/go-cli/pkg/database"
+	"github.com/urfave/cli"
 	"io/ioutil"
 	"os"
 	"path"
@@ -59,17 +59,17 @@ var Db2StructCommand = cli.Command{
 			columns := db.GetColumns(tb.TableName)
 			fileName:=fmt.Sprintf("%s.go", strings.ToLower(tb.TableName))
 			structName:=strings.ReplaceAll(tb.TableName,"_","")
-			structName=strings.Title(structName)
-			structName=fmt.Sprintf("%sModel",structName)
+			structName =strings.Title(structName)
+			structName =fmt.Sprintf("%sModel", structName)
 			structContent:=new(strings.Builder)
-			structContent.WriteString(fmt.Sprintf("//%s\r\n",tb.TableComment))
-			structContent.WriteString(fmt.Sprintf("type %s struct{\r\n",structName))
-			for _,c:=range columns{
+			structContent.WriteString(fmt.Sprintf("//%s\r\n", tb.TableComment))
+			structContent.WriteString(fmt.Sprintf("type %s struct{\r\n", structName))
+			for _,c:=range columns {
 				cName:=strings.Title(strings.ReplaceAll(c.Field,"_",""))
-				structContent.WriteString(fmt.Sprintf("    %s %s   `gorm:\"column:%s\"` //%s \r\n ",cName,c.GetGoType(),c.Field,c.Comment))
+				structContent.WriteString(fmt.Sprintf("    %s %s   `gorm:\"column:%s\"` //%s \r\n ", cName, c.GetGoType(), c.Field, c.Comment))
 			}
 			structContent.WriteString("}")
-			ioutil.WriteFile(path.Join(c.String("path"),fileName), []byte(structContent.String()), os.ModePerm)
+			ioutil.WriteFile(path.Join(c.String("path"), fileName), []byte(structContent.String()), os.ModePerm)
 
 			fmt.Println(tb.TableName," build success...")
 

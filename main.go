@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/lshsuper/go-cli/cmd"
 	"github.com/urfave/cli"
-	"github.com/lshsuper/go-cli/cmd/command"
 	"log"
 	"os"
 )
@@ -28,7 +28,7 @@ func main() {
 
 `
 
-	oApp.Commands = append(oApp.Commands, command.Db2StructCommand,command.ApiCommand,command.WebCommand)
+	oApp.Commands = append(oApp.Commands, cmd.Db2StructCommand, cmd.ApiCommand, cmd.WebCommand)
 
 	//启动
 	if err := oApp.Run(os.Args); err != nil {
