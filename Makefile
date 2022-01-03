@@ -4,7 +4,7 @@ PRO_NAME=go-cli
 export CGO_ENABLED=0
 export GOARCH=amd64
 #windows,linux,darwin
-export GOOS=linux
+export GOOS=windows
 
 build:
 ifeq ($(GOOS),windows)
@@ -12,3 +12,6 @@ ifeq ($(GOOS),windows)
 else
 	@go build -o $(PRO_NAME)
 endif
+
+mod:
+	@go mod tidy
